@@ -68,15 +68,15 @@ function SpinningCylinder() {
 }
 function Ground() {
   return (
-    <mesh 
-      rotation={[-Math.PI/2,0,0]}  // lay flat
-      position={[0,-1,0]}          // drop under shapes
-      receiveShadow                // plane go show shadow
+    <mesh
+      rotation={[-Math.PI / 2, 0, 0]}  // lay plane flat on ground
+      position={[0, -1, 0]}            // drop plane 1 unit down
+      receiveShadow                   // let plane catch shadows
     >
-      <planeGeometry args={[10,10]} />
-      <meshStandardMaterial color="#777" />
+      <planeGeometry args={[10, 10]} />           {/* 10×10 floor */}
+      <meshStandardMaterial color="#777777" />    {/* grey floor */}
     </mesh>
-  )
+  );
 }
 
 export default function App() {
@@ -89,14 +89,7 @@ export default function App() {
 
     
       <ambientLight intensity={0.5} />
-      <directionalLight 
-      position={[2, 5, 2]}
-      castShadow                     
-        shadow-mapSize-width={1024}    // sharpen shadow
-        shadow-mapSize-height={1024}
-        shadow-camera-near={0.5}
-        shadow-camera-far={20}
-      />
+      <directionalLight position={[2, 5, 2]} castShadow shadow-mapSize-width={1024} shadow-mapSize-height={1024} shadow-camera-near={0.5} shadow-camera-far={20} />
       <OrbitControls />
       <SpinningCube />
       <SpinningSphere />
