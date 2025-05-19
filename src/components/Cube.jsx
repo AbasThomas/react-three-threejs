@@ -1,16 +1,12 @@
-// import React from 'react'
-// import { useRef } from 'react';
-// const Cube = () => {
-//   return (
-//     <div> const meshRef = useRef();
+import React from 'react'
 
-//       useFrame(() => {
-//     // This one go run every frame (like animation)
-//     if (meshRef.current) {
-//       meshRef.current.rotation.y += 0.01; // Turn am small-small
-//     }
-//   });</div>
-//   )
-// }
+const Cube = () => {
+    
+  return (
+    <div>
+        
+    </div>
+  )
+}
 
-// export default Cube
+export default Cube

@@ -19,14 +19,16 @@ function SpinningCube() {
 
 function SpinningSphere() {
   const ref = React.useRef();
-  useFrame(() => {
-    ref.current.rotation.y += 0.01;
+  useFrame(({ clock }) => {
+    const t = clock.getElapsedTime(); // get how much time has passed
+    // ref.current.rotation.y += 0.01;   // keep spinning
+    ref.current.position.y = Math.sin(t) *3; // up/down motion
   });
    const texture = useTexture('/textures/earth.jpg');
 
   return (
     <mesh ref={ref} position={[0, 0, 0]} castShadow>
-      <sphereGeometry args={[1, 32, 32]} />
+      <sphereGeometry args={[3, 32, 32]} />
       <meshStandardMaterial map={texture} />
     </mesh>
   );
@@ -88,7 +90,7 @@ function Ground() {
   return (
     <mesh
       rotation={[-Math.PI / 2, 0, 0]}  // lay plane flat on ground
-      position={[0, -2, 0]}            // drop plane 1 unit down
+      position={[0, -4, 0]}            // drop plane 1 unit down
       receiveShadow                   // let plane catch shadows
     >
       <planeGeometry args={[20, 10]} />           {/* 10×10 floor */}
@@ -110,12 +112,12 @@ export default function App() {
       <directionalLight position={[2, 5, 2]} castShadow shadow-mapSize-width={1024} shadow-mapSize-height={1024} shadow-camera-near={0.5} shadow-camera-far={20} />
       <OrbitControls />
         <Ground />
- castShadow
-      <SpinningCube />
+ 
+      {/* <SpinningCube /> */}
       <SpinningSphere />
-      <SpinningTorus />
-      <SpinningCone />
-      <SpinningCylinder />
+      {/* <SpinningTorus /> */}
+      {/* <SpinningCone /> */}
+      {/* <SpinningCylinder /> */}
     </Canvas>
   );
 }
