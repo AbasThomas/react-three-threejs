@@ -1,17 +1,17 @@
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useTexture } from '@react-three/drei';
 import React, { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
 import { SphereGeometry } from 'three';
 function SpinningCube() {
   const ref = React.useRef();
   useFrame(() => {
     ref.current.rotation.y += 0.01;
   });
+  const texture = useTexture('/textures/wood.jpg');
   return (
     <mesh ref={ref} position={[-2, 0, 0]} castShadow>
       <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color="green" />
+      <meshStandardMaterial map={texture} />
     </mesh>
   );
 }
@@ -22,10 +22,12 @@ function SpinningSphere() {
   useFrame(() => {
     ref.current.rotation.y += 0.01;
   });
+   const texture = useTexture('/textures/wood.jpg');
+
   return (
     <mesh ref={ref} position={[0, 0, 0]} castShadow>
       <sphereGeometry args={[1, 32, 32]} />
-      <meshStandardMaterial color="skyblue" />
+      <meshStandardMaterial map={texture} />
     </mesh>
   );
 }
