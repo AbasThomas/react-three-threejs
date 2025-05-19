@@ -55,6 +55,18 @@ export default function App() {
   );
 }
 
+function SpinningCone() {
+  const ref = useRef();
+  useFrame(() => { ref.current.rotation.y += 0.01 });
+  return (
+    <mesh ref={ref} position={[-2, 1.5, 0]}>
+      {/* coneGeometry args: [radius, height, radialSegments] */}
+      <coneGeometry args={[0.7, 1.5, 32]} />
+      {/* MeshBasicMaterial no shading from lights */}
+      <meshBasicMaterial color="limegreen" />
+    </mesh>
+  );
+}
 
 // src/App.jsx
 // import { Canvas } from '@react-three/fiber';
