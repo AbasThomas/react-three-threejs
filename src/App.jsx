@@ -1,5 +1,5 @@
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { OrbitControls, useTexture } from '@react-three/drei';
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { SphereGeometry } from 'three';
@@ -9,7 +9,7 @@ function SpinningCube() {
     ref.current.rotation.y += 0.01;
   });
   return (
-    <mesh ref={ref} position={[-2, 0, 0]}>
+    <mesh ref={ref} position={[-2, 0, 0]} castShadow>
       <boxGeometry args={[1, 1, 1]} />
       <meshStandardMaterial color="green" />
     </mesh>
@@ -23,7 +23,7 @@ function SpinningSphere() {
     ref.current.rotation.y += 0.01;
   });
   return (
-    <mesh ref={ref} position={[0, 0, 0]}>
+    <mesh ref={ref} position={[0, 0, 0]} castShadow>
       <sphereGeometry args={[1, 32, 32]} />
       <meshStandardMaterial color="skyblue" />
     </mesh>
@@ -35,7 +35,7 @@ function SpinningTorus() {
     ref.current.rotation.y += 0.01;
   });
   return (
-    <mesh ref={ref} position={[3, 0, 0]}>
+    <mesh ref={ref} position={[3, 0, 0]} castShadow>
       <torusGeometry args={[1, 0.2, 32, 200]} /> // thinner, smoother donut
       <meshStandardMaterial color="pink" metalness={0.4 } roughness={0} />
     </mesh>
@@ -45,7 +45,7 @@ function SpinningCone() {
   const ref = useRef();
   useFrame(() => { ref.current.rotation.y += 0.01 });
   return (
-    <mesh ref={ref} position={[6, 0, 0]}>
+    <mesh ref={ref} position={[6, 0, 0]} castShadow>
       {/* coneGeometry args: [radius, height, radialSegments] */}
       <coneGeometry args={[0.7, 2, 32]} />
       {/* MeshBasicMaterial no shading from lights */}
@@ -58,7 +58,7 @@ function SpinningCylinder() {
   const ref = useRef();
   useFrame(() => { ref.current.rotation.y += 0.01 });
   return (
-    <mesh ref={ref} position={[7.5, 0, 0]}>
+    <mesh ref={ref} position={[7.5, 0, 0]} castShadow>
       {/* cylinderGeometry args: [topRadius, bottomRadius, height, radialSegments] */}
       <cylinderGeometry args={[0.5, 0.5, 1.5, 32]} />
       {/* MeshPhongMaterial gives shiny highlights */}
@@ -91,6 +91,8 @@ export default function App() {
       <ambientLight intensity={0.5} />
       <directionalLight position={[2, 5, 2]} castShadow shadow-mapSize-width={1024} shadow-mapSize-height={1024} shadow-camera-near={0.5} shadow-camera-far={20} />
       <OrbitControls />
+        <Ground />
+ castShadow
       <SpinningCube />
       <SpinningSphere />
       <SpinningTorus />
