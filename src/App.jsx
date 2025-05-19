@@ -22,7 +22,7 @@ function SpinningSphere() {
   useFrame(() => {
     ref.current.rotation.y += 0.01;
   });
-   const texture = useTexture('/textures/wood.jpg');
+   const texture = useTexture('/textures/earth.jpg');
 
   return (
     <mesh ref={ref} position={[0, 0, 0]} castShadow>
@@ -36,10 +36,14 @@ function SpinningTorus() {
   useFrame(() => {
     ref.current.rotation.y += 0.01;
   });
+  const texture = useTexture('/textures/donut.jpg');
+
   return (
     <mesh ref={ref} position={[3, 0, 0]} castShadow>
-      <torusGeometry args={[1, 0.2, 32, 200]} /> // thinner, smoother donut
-      <meshStandardMaterial color="pink" metalness={0.4 } roughness={0} />
+      <torusGeometry args={[1, 0.4, 32, 200]} /> // thinner, smoother donut
+      {/* <meshStandardMaterial color="pink" metalness={0.4 } roughness={0} /> */}
+       <meshStandardMaterial map={texture} />
+
     </mesh>
   );
 }
@@ -72,10 +76,10 @@ function Ground() {
   return (
     <mesh
       rotation={[-Math.PI / 2, 0, 0]}  // lay plane flat on ground
-      position={[0, -1, 0]}            // drop plane 1 unit down
+      position={[0, -2, 0]}            // drop plane 1 unit down
       receiveShadow                   // let plane catch shadows
     >
-      <planeGeometry args={[10, 10]} />           {/* 10×10 floor */}
+      <planeGeometry args={[20, 10]} />           {/* 10×10 floor */}
       <meshStandardMaterial color="#777777" />    {/* grey floor */}
     </mesh>
   );
