@@ -11,7 +11,7 @@ function SpinningCube() {
   return (
     <mesh ref={ref} position={[-2, 0, 0]}>
       <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color="orange" />
+      <meshStandardMaterial color="green" />
     </mesh>
   );
 }
@@ -37,7 +37,7 @@ function SpinningTorus() {
   return (
     <mesh ref={ref} position={[3, 0, 0]}>
       <torusGeometry args={[1, 0.4, 16, 100]} />
-      <meshStandardMaterial color="gold" />
+      <meshStandardMaterial color="pink" />
     </mesh>
   );
 }
