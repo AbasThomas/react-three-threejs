@@ -47,7 +47,7 @@ function SpinningCone() {
   return (
     <mesh ref={ref} position={[6, 0, 0]}>
       {/* coneGeometry args: [radius, height, radialSegments] */}
-      <coneGeometry args={[0.7, 1.5, 32]} />
+      <coneGeometry args={[0.7, 2, 32]} />
       {/* MeshBasicMaterial no shading from lights */}
       <meshBasicMaterial color="limegreen" />
     </mesh>
@@ -66,17 +66,37 @@ function SpinningCylinder() {
     </mesh>
   );
 }
+function Ground() {
+  return (
+    <mesh 
+      rotation={[-Math.PI/2,0,0]}  // lay flat
+      position={[0,-1,0]}          // drop under shapes
+      receiveShadow                // plane go show shadow
+    >
+      <planeGeometry args={[10,10]} />
+      <meshStandardMaterial color="#777" />
+    </mesh>
+  )
+}
 
 export default function App() {
   return (
-    <Canvas style={{ height: '100vh', width: '100vw', background: '#ececec' } } camera={{
-    position: [0, 5, 10], // [x, y, z] => move camera back and up
-    fov: 50,              // Field of view in degrees (default 75)
-    near: 0.1,            // near clipping plane
-    far: 1000             // far clipping plane
-  }}>
+   <Canvas
+  shadows                      // turn on shadow computing
+  camera={{ position: [0,5,10], fov: 50 }}
+  style={{ height: '100vh', background: '#ececec' }}
+>
+
+    
       <ambientLight intensity={0.5} />
-      <directionalLight position={[2, 5, 2]} />
+      <directionalLight 
+      position={[2, 5, 2]}
+      castShadow                     
+        shadow-mapSize-width={1024}    // sharpen shadow
+        shadow-mapSize-height={1024}
+        shadow-camera-near={0.5}
+        shadow-camera-far={20}
+      />
       <OrbitControls />
       <SpinningCube />
       <SpinningSphere />
