@@ -36,8 +36,8 @@ function SpinningTorus() {
   });
   return (
     <mesh ref={ref} position={[3, 0, 0]}>
-      <torusGeometry args={[1, 0.4, 16, 100]} />
-      <meshStandardMaterial color="pink" />
+      <torusGeometry args={[1, 0.2, 32, 200]} /> // thinner, smoother donut
+      <meshStandardMaterial color="pink" metalness={0.4 } roughness={0} />
     </mesh>
   );
 }
@@ -49,7 +49,7 @@ function SpinningCone() {
       {/* coneGeometry args: [radius, height, radialSegments] */}
       <coneGeometry args={[0.7, 1.5, 32]} />
       {/* MeshBasicMaterial no shading from lights */}
-      <meshStandardMaterial color="limegreen" />
+      <meshBasicMaterial color="limegreen" />
     </mesh>
   );
 }
@@ -58,18 +58,23 @@ function SpinningCylinder() {
   const ref = useRef();
   useFrame(() => { ref.current.rotation.y += 0.01 });
   return (
-    <mesh ref={ref} position={[2, 1.5, 0]}>
+    <mesh ref={ref} position={[7.5, 0, 0]}>
       {/* cylinderGeometry args: [topRadius, bottomRadius, height, radialSegments] */}
       <cylinderGeometry args={[0.5, 0.5, 1.5, 32]} />
       {/* MeshPhongMaterial gives shiny highlights */}
-      <meshPhongMaterial color="hotpink" shininess={100} />
+      <meshPhongMaterial color="hotpink" shininess={21} />
     </mesh>
   );
 }
 
 export default function App() {
   return (
-    <Canvas style={{ height: '100vh', width: '100vw', background: '#ececec' }}>
+    <Canvas style={{ height: '100vh', width: '100vw', background: '#ececec' } } camera={{
+    position: [0, 5, 10], // [x, y, z] => move camera back and up
+    fov: 50,              // Field of view in degrees (default 75)
+    near: 0.1,            // near clipping plane
+    far: 1000             // far clipping plane
+  }}>
       <ambientLight intensity={0.5} />
       <directionalLight position={[2, 5, 2]} />
       <OrbitControls />
@@ -77,6 +82,7 @@ export default function App() {
       <SpinningSphere />
       <SpinningTorus />
       <SpinningCone />
+      <SpinningCylinder />
     </Canvas>
   );
 }
