@@ -31,7 +31,7 @@ function SpinningSphere() {
     </mesh>
   );
 }
-function SpinningTorus() {
+function SpinningTorus() {  
   const ref = React.useRef();
   useFrame(() => {
     ref.current.rotation.y += 0.01;
@@ -40,9 +40,9 @@ function SpinningTorus() {
 
   return (
     <mesh ref={ref} position={[3, 0, 0]} castShadow>
-      <torusGeometry args={[1, 0.4, 32, 200]} /> // thinner, smoother donut
+      <torusGeometry args={[1, 0.5, 32, 200]} /> // thinner, smoother donut
       {/* <meshStandardMaterial color="pink" metalness={0.4 } roughness={0} /> */}
-       <meshStandardMaterial map={texture} />
+       <meshStandardMaterial map={texture} roughness ={100} metalness={0.1 } />
 
     </mesh>
   );
@@ -50,16 +50,28 @@ function SpinningTorus() {
 function SpinningCone() {
   const ref = useRef();
   useFrame(() => { ref.current.rotation.y += 0.01 });
+    const texture = useTexture('/textures/birthday.jpg');
+
   return (
     <mesh ref={ref} position={[6, 0, 0]} castShadow>
       {/* coneGeometry args: [radius, height, radialSegments] */}
       <coneGeometry args={[0.7, 2, 32]} />
       {/* MeshBasicMaterial no shading from lights */}
-      <meshBasicMaterial color="limegreen" />
+      <meshStandardMaterial map={texture} />
     </mesh>
   );
 }
+function Shape() {
+  const ref = useRef();
+  useFrame(() => {ref.current.rotations.y += 0.01});
+  // const texture = useTexture('/')
+  
+  return(
+    <mesh ref={ref}>
 
+    </mesh>
+  )
+}
 function SpinningCylinder() {
   const ref = useRef();
   useFrame(() => { ref.current.rotation.y += 0.01 });
@@ -80,7 +92,7 @@ function Ground() {
       receiveShadow                   // let plane catch shadows
     >
       <planeGeometry args={[20, 10]} />           {/* 10×10 floor */}
-      <meshStandardMaterial color="#777777" />    {/* grey floor */}
+      <meshStandardMaterial color="#b9b2b2" />    {/* grey floor */}
     </mesh>
   );
 }
@@ -110,20 +122,33 @@ export default function App() {
 
 
 
-// src/App.jsx
-// import { Canvas } from '@react-three/fiber';
-// import { OrbitControls } from '@react-three/drei';
+// // src/App.jsx
+// // import { Canvas } from '@react-three/fiber';
+// // import { OrbitControls } from '@react-three/drei';
 
-// export default function App() {
+// // export default function App() {
+// //   return (
+// //     <Canvas style={{ height: '100vh', background: '#ececec' }}>
+// //       {/* Ambient light shines everywhere */}
+// //       <ambientLight intensity={0.5} />
+// //       {/* Directional light like sun */}
+// //       <directionalLight position={[2, 5, 2]} />
+// //       {/* Allow us to drag/rotate scene */}
+// //       <OrbitControls />
+// //       {/*  🟢 Next: add shapes here */}
+// //     </Canvas>
+// //   );
+// // }
+
+// import React from 'react'
+// import World from './pages/World'
+
+// const App = () => {
 //   return (
-//     <Canvas style={{ height: '100vh', background: '#ececec' }}>
-//       {/* Ambient light shines everywhere */}
-//       <ambientLight intensity={0.5} />
-//       {/* Directional light like sun */}
-//       <directionalLight position={[2, 5, 2]} />
-//       {/* Allow us to drag/rotate scene */}
-//       <OrbitControls />
-//       {/*  🟢 Next: add shapes here */}
-//     </Canvas>
-//   );
+//     <>
+//         <World/>
+//     </>
+//   )
 // }
+
+// export default App
