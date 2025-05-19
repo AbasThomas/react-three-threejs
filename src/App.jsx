@@ -53,6 +53,7 @@ function SpinningCone() {
     </mesh>
   );
 }
+
 function SpinningCylinder() {
   const ref = useRef();
   useFrame(() => { ref.current.rotation.y += 0.01 });
