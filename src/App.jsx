@@ -1,51 +1,75 @@
-// import { Canvas } from '@react-three/fiber';
-// import { OrbitControls } from '@react-three/drei';
-// import { useRef } from 'react';
-// import { useFrame } from '@react-three/fiber';
-// function Box() {
-//   const meshRef = useRef();
-
-//   useFrame(() => {
-//     // This one go run every frame (like animation)
-//     if (meshRef.current) {
-//       meshRef.current.rotation.y += 0.01; // Turn am small-small
-//     }
-//   });
-
-//   return (
-//     <mesh ref={meshRef}>
-//       <boxGeometry args={[1, 1, 1]} />
-//       <meshStandardMaterial color="orange" />
-//     </mesh>
-//   );
-// }
-
-// function App() {
-//   return (
-//     <Canvas style={{ height: '100vh', background: '#1a1a1a' }}>
-//       <ambientLight intensity={0.5} />
-//       <directionalLight position={[2, 2, 2]} />
-//       <OrbitControls />
-//       <Box />
-//     </Canvas>
-//   );
-// }
-
-// export default App;
-// src/App.jsx
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
+import React, { useRef } from 'react';
+import { useFrame } from '@react-three/fiber';
+import { SphereGeometry } from 'three';
+function SpinningCube() {
+  const ref = React.useRef();
+  useFrame(() => {
+    ref.current.rotation.y += 0.01;
+  });
+  return (
+    <mesh ref={ref} position={[-2, 0, 0]}>
+      <boxGeometry args={[1, 1, 1]} />
+      <meshStandardMaterial color="orange" />
+    </mesh>
+  );
+}
+
+
+function SpinningSphere() {
+  const ref = React.useRef();
+  useFrame(() => {
+    ref.current.rotation.y += 0.01;
+  });
+  return (
+    <mesh ref={ref} position={[0, 0, 0]}>
+      <sphereGeometry args={[1, 32, 32]} />
+      <meshStandardMaterial color="skyblue" />
+    </mesh>
+  );
+}
+function SpinningTorus() {
+  const ref = React.useRef();
+  useFrame(() => {
+    ref.current.rotation.y += 0.01;
+  });
+  return (
+    <mesh ref={ref} position={[3, 0, 0]}>
+      <torusGeometry args={[1, 0.4, 16, 100]} />
+      <meshStandardMaterial color="gold" />
+    </mesh>
+  );
+}
 
 export default function App() {
   return (
-    <Canvas style={{ height: '100vh', background: '#ececec' }}>
-      {/* Ambient light shines everywhere */}
+    <Canvas style={{ height: '100vh', width: '100vw', background: '#ececec' }}>
       <ambientLight intensity={0.5} />
-      {/* Directional light like sun */}
       <directionalLight position={[2, 5, 2]} />
-      {/* Allow us to drag/rotate scene */}
       <OrbitControls />
-      {/*  🟢 Next: add shapes here */}
+      <SpinningCube />
+      <SpinningSphere />
+      <SpinningTorus />
     </Canvas>
   );
 }
+
+
+// src/App.jsx
+// import { Canvas } from '@react-three/fiber';
+// import { OrbitControls } from '@react-three/drei';
+
+// export default function App() {
+//   return (
+//     <Canvas style={{ height: '100vh', background: '#ececec' }}>
+//       {/* Ambient light shines everywhere */}
+//       <ambientLight intensity={0.5} />
+//       {/* Directional light like sun */}
+//       <directionalLight position={[2, 5, 2]} />
+//       {/* Allow us to drag/rotate scene */}
+//       <OrbitControls />
+//       {/*  🟢 Next: add shapes here */}
+//     </Canvas>
+//   );
+// }
